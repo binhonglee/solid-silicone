@@ -71,7 +71,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build --workspace=solid-silicone
       - run: npm run build:pages --workspace=silicone-docs
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: docs/dist
       - uses: actions/deploy-pages@v5
