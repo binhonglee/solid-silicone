@@ -1,0 +1,798 @@
+/**
+ * Solid Silicone — shared component CSS.
+ * Layer order (do NOT reorder): tokens, base, design-system primitives, new components.
+ * Per-app rules load AFTER this sheet at equal specificity for sizing/positioning deviations only.
+ */
+@import './tokens.css';
+:root {
+    --bg-color: var(--vscode-editor-background, var(--si-surface));
+    --fg-color: var(--vscode-editor-foreground, var(--si-text));
+    --border-color: var(--vscode-panel-border, var(--si-border));
+    --hover-bg: var(--vscode-list-hoverBackground, var(--si-hover));
+    --active-bg: var(--vscode-list-activeSelectionBackground, var(--si-active));
+    --regular-bg: var(--vscode-editorWidget-background, var(--si-surface-raised, var(--bg-color)));
+    --button-bg: var(--vscode-button-background, var(--si-accent));
+    --button-fg: var(--vscode-button-foreground, var(--si-on-accent));
+    --button-hover-bg: var(--vscode-button-hoverBackground, var(--si-accent-hover));
+    --input-bg: var(--vscode-input-background, var(--si-surface));
+    --input-fg: var(--vscode-input-foreground, var(--si-text));
+    --input-border: var(--vscode-input-border, var(--si-border));
+    /* Monospace alias; VS Code injects --vscode-editor-font-family, hosts set it in typography/*.css */
+    --mono-font: var(--vscode-editor-font-family, var(--si-font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace));
+}
+
+@supports (color: rgb(from white r g b)) {
+    :root {
+        --active-bg: rgb(from var(--vscode-list-activeSelectionBackground, var(--si-active)) r g b / 0.7);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4)) transparent;
+}
+
+body {
+    font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif);
+    font-size: var(--vscode-font-size, 13px);
+    color: var(--fg-color);
+    background-color: var(--bg-color);
+}
+
+/* Shared scrollbar chrome, ported from the app shell: thin overlay-style
+   thumb on a transparent track, themed through the scrollbarSlider tokens.
+   The rgba fallbacks are translucent grays that read on light and dark. */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4));
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--vscode-scrollbarSlider-hoverBackground, rgba(100, 100, 100, 0.7));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--vscode-scrollbarSlider-activeBackground, rgba(191, 191, 191, 0.4));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+html.overlay-scroll-locked,
+body.overlay-scroll-locked {
+    overscroll-behavior: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--vscode-font-family, inherit);
+}
+
+
+/* =========================================================================
+   DESIGN SYSTEM (solid-silicone primitives)
+   =========================================================================
+   The shared component classes live HERE, immediately after the base
+   element rules, so that per-app rules loaded after this sheet can override
+   them at equal specificity — per-app rules carry only positioning/
+   sizing deviations. Do not move these sections below per-app CSS. */
+
+/* =========================================================================
+   Design system: overlay chrome
+   =========================================================================
+   The shared modal-overlay shell rendered by <OverlayHost> + <Overlay>
+   (webview/src/components/). ALL common chrome lives here on classes; the
+   per-overlay id rules that remain in this file / co-located component CSS
+   set only what is genuinely specific to that overlay: panel width/height,
+   host z-index, and special body layouts. Do not restyle the shared chrome
+   from per-overlay selectors. */
+
+.overlay-host {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    overscroll-behavior: contain;
+}
+
+.overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.overlay-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 96%;
+    max-height: 86%;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    flex: 0 0 auto;
+}
+
+/* Stacked variant: a title row plus extra rows (meta line, search input). */
+.overlay-header--stack {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.overlay-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.overlay-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 0;
+}
+
+.overlay-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+/* Toolbar row between header and body (search + filters). */
+.overlay-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    flex: 0 0 auto;
+}
+
+.overlay-search-input {
+    flex: 1;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: var(--input-fg);
+    font-size: 13px;
+}
+
+.overlay-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 12px 16px 16px;
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+/* Body variant for overlays that manage their own inner layout/scroll. */
+.overlay-body--flush {
+    padding: 0;
+}
+
+.overlay-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 12px 16px;
+    flex: 0 0 auto;
+}
+
+/* Secondary action button used in overlay headers/toolbars ("New", …). */
+.overlay-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--vscode-button-secondaryBackground, var(--si-surface-raised));
+    color: var(--vscode-button-secondaryForeground, var(--si-text));
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.overlay-action-btn:hover {
+    background: var(--vscode-button-secondaryHoverBackground, var(--si-hover));
+}
+
+/* =========================================================================
+   Design system: close button
+   =========================================================================
+   Rendered by <CloseButton> (webview/src/components/CloseButton.tsx). Every
+   dismiss affordance in the app uses this one class. */
+
+.close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    background: transparent;
+    border: none;
+    color: var(--fg-color);
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    background: var(--hover-bg);
+}
+
+/* =========================================================================
+   Design system: buttons
+   =========================================================================
+   Rendered by <Button> / <ButtonGroup> (webview/src/components/Button.tsx).
+   Variants:
+   - .btn-primary   main action (VS Code button colors)
+   - .btn-secondary neutral action (secondary button colors) — the default
+   - .btn-outline   low-emphasis bordered action
+   - .btn-danger    destructive action, error colors at rest (matches the
+   file-explorer delete confirm)
+   Sizes: default, .btn-sm (compact rows). */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.btn-primary {
+    background: var(--button-bg);
+    color: var(--button-fg);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--button-hover-bg);
+}
+
+.btn-secondary {
+    background: var(--vscode-button-secondaryBackground, var(--si-surface-raised));
+    color: var(--vscode-button-secondaryForeground, var(--si-text));
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--vscode-button-secondaryHoverBackground, var(--si-hover));
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--fg-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover:not(:disabled) {
+    background: var(--hover-bg);
+}
+
+.btn-danger {
+    background: var(--vscode-errorBackground, var(--si-danger-bg));
+    color: var(--vscode-errorForeground, var(--si-danger));
+    border: 1px solid var(--vscode-inputValidation-errorBorder, var(--vscode-errorForeground, var(--si-danger)));
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: var(--vscode-errorBackground, var(--si-danger-bg));
+    color: var(--vscode-errorForeground, var(--si-danger));
+}
+
+.btn-sm {
+    padding: 2px 8px;
+    font-size: 11px;
+}
+
+/* Segmented control: a bordered row of .btn-ghost-style segments where the
+   active segment is filled (e.g. the stash/history scope toggle). */
+.btn-group {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--vscode-editor-background, var(--si-surface));
+}
+
+.btn-group .btn-segment {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--vscode-descriptionForeground, var(--si-muted));
+    font-size: 11px;
+    padding: 5px 9px;
+    cursor: pointer;
+}
+
+.btn-group .btn-segment.active {
+    background: var(--vscode-button-secondaryBackground, var(--si-surface-raised));
+    color: var(--vscode-button-secondaryForeground, var(--si-text));
+}
+
+.btn-group .btn-segment:not(.active):hover {
+    background: var(--hover-bg);
+    color: var(--fg-color);
+}
+
+/* =========================================================================
+   Design system: menus
+   =========================================================================
+   Rendered by <Menu>/<MenuItem>/<MenuSeparator> (components/Menu.tsx). Every
+   dropdown, row menu, and right-click menu uses these classes; per-menu
+   classes carry only positioning (top/right/z-index). */
+
+.menu {
+    position: absolute;
+    z-index: 60;
+    min-width: 180px;
+    padding: 4px;
+    background: var(--vscode-dropdown-background, var(--bg-color, #1e1e1e));
+    border: 1px solid var(--vscode-dropdown-border, var(--border-color, #3c3c3c));
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12px;
+    color: var(--vscode-dropdown-foreground, var(--fg-color, #cccccc));
+}
+
+.menu--fixed {
+    position: fixed;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 10px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    font: inherit;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.menu-item:hover:not(:disabled) {
+    background: var(--hover-bg);
+}
+
+.menu-item:focus-visible {
+    outline: 1px solid var(--vscode-focusBorder, var(--si-focus));
+    outline-offset: -1px;
+}
+
+.menu-item.danger {
+    color: var(--vscode-errorForeground, var(--si-danger));
+}
+
+.menu-item:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.menu-sep {
+    height: 1px;
+    margin: 4px 6px;
+    background: var(--border-color);
+    border: 0;
+    flex: 0 0 auto;
+}
+
+/* =========================================================================
+   Design system: disclosure toggle
+   =========================================================================
+   Rendered by <DisclosureButton> (components/DisclosureButton.tsx): the
+   expand/collapse chevron on expandable rows. Rotates 90° when .expanded. */
+
+.disclosure-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--fg-color);
+    cursor: pointer;
+    line-height: 0;
+    transform: rotate(0deg);
+    transition: transform 0.12s ease;
+}
+
+.disclosure-toggle svg {
+    display: block;
+    pointer-events: none;
+}
+
+.disclosure-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+/* =========================================================================
+   Design system: spinner
+   =========================================================================
+   Rendered by <Spinner> (components/Spinner.tsx). Inherits currentColor. */
+
+.spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 999px;
+    animation: ds-spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes ds-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================================
+   Design system: badge
+   =========================================================================
+   Rendered by <Badge> (components/Badge.tsx). Surfaces layer semantic
+   color/shape variants via their historical class. */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--vscode-badge-background, var(--si-active));
+    color: var(--vscode-badge-foreground, var(--si-text));
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* =========================================================================
+   Design system: pane resize handle
+   =========================================================================
+   Drag choreography lives in beginPaneDrag (components/paneResize.ts);
+   per-surface classes carry only positioning. */
+
+.resize-handle {
+    background: transparent;
+    cursor: col-resize;
+    transition: background-color 0.2s;
+}
+
+.resize-handle:hover,
+.resize-handle.resizing {
+    background: var(--vscode-focusBorder, var(--si-focus));
+}
+
+/* =========================================================================
+   Design system: misc shared pieces
+   =========================================================================
+   Empty states (<EmptyState>), checkbox rows (<Checkbox>), and list/section
+   titles share one look. (.empty-state itself predates the design system and
+   is defined earlier in this file.) */
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* Custom-drawn circular box, ported from the app shell: appearance none,
+   checkmark and indeterminate dash via ::after, themed fill states. Scoped
+   to .checkbox so consumer pages keep their own native boxes elsewhere. */
+.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 50%;
+    border: 1px solid var(--vscode-input-border, var(--si-border));
+    background: var(--vscode-input-background, var(--si-surface));
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.checkbox input[type="checkbox"]::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border-right: 2px solid var(--vscode-input-background, var(--si-surface));
+    border-bottom: 2px solid var(--vscode-input-background, var(--si-surface));
+}
+
+.checkbox input[type="checkbox"]:checked {
+    border-color: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+    background: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+}
+
+.checkbox input[type="checkbox"]:checked::after {
+    transform: rotate(45deg) translateX(-1px) translateY(-1px) scale(1);
+}
+
+.checkbox input[type="checkbox"]:indeterminate {
+    border-color: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+    background: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+}
+
+.checkbox input[type="checkbox"]:indeterminate::after {
+    width: 10px;
+    height: 0;
+    border: 0;
+    border-top: 2px solid var(--vscode-input-background, var(--si-surface));
+    transform: scale(1);
+}
+
+.checkbox input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--vscode-focusBorder, var(--si-focus));
+    outline-offset: 2px;
+}
+
+.checkbox input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    border-color: var(--vscode-disabledForeground, var(--si-muted));
+    background: var(--vscode-disabledForeground, var(--si-muted));
+}
+
+.checkbox input[type="checkbox"]:disabled::after {
+    display: none;
+}
+
+.checkbox input[type="checkbox"]:checked:disabled {
+    opacity: 0.65;
+    border-color: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+    background: var(--vscode-checkbox-foreground, var(--vscode-textLink-foreground, var(--si-accent)));
+}
+
+.checkbox input[type="checkbox"]:checked:disabled::after {
+    display: block;
+    border-right-color: var(--vscode-input-background, var(--si-surface));
+    border-bottom-color: var(--vscode-input-background, var(--si-surface));
+}
+
+.section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--vscode-descriptionForeground, var(--si-muted));
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* =========================================================================
+   Design system: text inputs
+   =========================================================================
+   The shared text field (`<input class="text-input">` / `<textarea>`).
+   Search-in-toolbar fields use .overlay-search-input (overlay chrome). */
+
+.text-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid var(--input-border, var(--border-color));
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--input-fg);
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--vscode-focusBorder, var(--si-focus));
+}
+
+.text-input:disabled {
+    opacity: 0.6;
+}
+
+textarea.text-input {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Fields laid out directly in a dialog card keep the classic spacing. */
+.dialog-card > .text-input {
+    padding: 8px 12px;
+    margin-bottom: 20px;
+}
+
+/* =========================================================================
+   Design system: search field
+   =========================================================================
+   Rendered by <SearchField> (webview/src/components/SearchField.tsx): a
+   bordered box with a leading search icon, a transparent input, and an
+   optional trailing slot (clear button, mode toggle). Shared by the Files,
+   Settings, and Entire search bars. Focus-within shows the glow. Per-surface
+   CSS may only set sizing (width/height/font) — never the border, background,
+   or focus treatment, which belong to the family here. */
+
+.search-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: 1px solid var(--input-border, var(--border-color));
+    border-radius: 6px;
+    background: var(--input-bg);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-field:focus-within {
+    border-color: var(--vscode-focusBorder, var(--si-focus));
+    box-shadow: 0 0 0 1px var(--vscode-focusBorder, var(--si-focus));
+}
+
+.search-field-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    color: var(--vscode-descriptionForeground, var(--si-muted));
+}
+
+.search-field-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--input-fg);
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.search-field-input::placeholder {
+    color: var(--vscode-input-placeholderForeground, var(--vscode-descriptionForeground, var(--si-muted)));
+}
+
+/* =========================================================================
+   Design system: dialogs
+   =========================================================================
+   Rendered by <Dialog> (webview/src/components/Dialog.tsx): fullscreen root
+   + dim scrim + centered card with title, body, and action row. Per-dialog
+   id rules may only set sizing (min/max width/height). */
+
+.dialog-root {
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    overscroll-behavior: contain;
+}
+
+.dialog-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 24px;
+    min-width: 400px;
+    max-width: min(560px, 92%);
+    max-height: 85%;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overscroll-behavior: contain;
+}
+
+.dialog-title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dialog-message {
+    margin: 0 0 20px 0;
+    font-size: 13px;
+    color: var(--fg-color);
+}
+
+.dialog-list {
+    margin: 0 0 20px 18px;
+    padding: 0;
+    font-size: 13px;
+    color: var(--fg-color);
+}
+
+.dialog-error {
+    color: var(--vscode-errorForeground, var(--si-danger));
+    background: var(--vscode-errorBackground, var(--si-danger-bg));
+    font-size: 12px;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-family: var(--vscode-editor-font-family, monospace);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+
+
+.empty-state {
+    padding: 24px;
+    text-align: center;
+    color: var(--vscode-descriptionForeground, var(--si-muted));
+    font-size: 12px;
+}
+
+/* New-component chrome lives in new_components.css (imported by the docs app and by dist builds). */

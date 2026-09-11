@@ -1,0 +1,214 @@
+/**
+ * Solarized color scheme (Ethan Schoonover) — authentic light + dark variants.
+ * Applied when :root has data-scheme="solarized" and data-theme="light"|"dark".
+ */
+
+:root[data-scheme="solarized"][data-theme="dark"] {
+    /* Core editor colors */
+    --vscode-editor-background: #002b36;
+    --vscode-editor-foreground: #839496;
+    --vscode-foreground: #839496;
+    --vscode-editor-selectionBackground: #073642;
+    --vscode-editor-lineHighlightBackground: #073642;
+
+    /* Panel and borders */
+    --vscode-panel-border: #073642;
+    --vscode-editorWidget-background: #073642;
+    --vscode-editorWidget-border: #094350;
+    --vscode-focusBorder: #268bd2;
+
+    /* List and selection */
+    --vscode-list-hoverBackground: #073642;
+    --vscode-list-activeSelectionBackground: #094350;
+    --vscode-list-activeSelectionForeground: #93a1a1;
+
+    /* Primary buttons */
+    --vscode-button-background: #268bd2;
+    --vscode-button-foreground: #fdf6e3;
+    --vscode-button-hoverBackground: #2f9be0;
+    --vscode-button-border: transparent;
+
+    /* Secondary buttons */
+    --vscode-button-secondaryBackground: #073642;
+    --vscode-button-secondaryForeground: #93a1a1;
+    --vscode-button-secondaryHoverBackground: #094350;
+
+    /* Inputs */
+    --vscode-input-background: #002b36;
+    --vscode-input-foreground: #93a1a1;
+    --vscode-input-border: #094350;
+    --vscode-input-placeholderForeground: #586e75;
+
+    /* Dropdowns */
+    --vscode-dropdown-background: #073642;
+    --vscode-dropdown-foreground: #93a1a1;
+    --vscode-dropdown-border: #094350;
+
+    /* Badges */
+    --vscode-badge-background: #094350;
+    --vscode-badge-foreground: #93a1a1;
+
+    /* Text styles */
+    --vscode-descriptionForeground: #586e75;
+    --vscode-disabledForeground: #586e75;
+    --vscode-textLink-foreground: #268bd2;
+
+    /* Checkbox */
+    --vscode-checkbox-foreground: #268bd2;
+
+    /* Error and validation */
+    --vscode-errorForeground: #dc322f;
+    --vscode-errorBackground: rgba(220, 50, 47, 0.12);
+    --vscode-inputValidation-errorBackground: rgba(220, 50, 47, 0.12);
+    --vscode-inputValidation-errorForeground: #dc322f;
+    --vscode-inputValidation-errorBorder: #dc322f;
+    --vscode-editorError-foreground: #dc322f;
+
+    /* Warning */
+    --vscode-inputValidation-warningBackground: rgba(181, 137, 0, 0.12);
+    --vscode-inputValidation-warningForeground: #b58900;
+    --vscode-inputValidation-warningBorder: #b58900;
+    --vscode-editorWarning-foreground: #b58900;
+
+    /* Git decorations */
+    --vscode-gitDecoration-addedResourceForeground: #859900;
+
+    /* Diff editor */
+    --vscode-diffEditor-insertedTextBackground: rgba(133, 153, 0, 0.16);
+    --vscode-diffEditor-removedTextBackground: rgba(220, 50, 47, 0.16);
+
+    /* Banner */
+    --vscode-banner-background: #073642;
+    --vscode-banner-foreground: #93a1a1;
+    --vscode-banner-border: #094350;
+
+    /* Terminal ANSI colors (drive syntax + graph accents) */
+    --vscode-terminal-ansiCyan: #2aa198;
+    --vscode-terminal-ansiMagenta: #6c71c4;
+    --vscode-terminal-ansiYellow: #b58900;
+    --vscode-terminal-ansiGreen: #859900;
+    --vscode-terminal-ansiBlue: #268bd2;
+    --vscode-terminal-ansiRed: #dc322f;
+
+    /* Shell chrome */
+    --shell-window-close-hover-bg: #dc322f;
+    --shell-window-close-hover-fg: #fdf6e3;
+
+    /* Files activity git status */
+    --gn-status-added: #859900;
+    --gn-status-added-bg: rgba(133, 153, 0, 0.16);
+    --gn-status-removed: #dc322f;
+    --gn-status-removed-bg: rgba(220, 50, 47, 0.16);
+    --gn-status-modified: #b58900;
+    --gn-status-modified-bg: rgba(181, 137, 0, 0.16);
+    --gn-status-untracked: #268bd2;
+    --gn-status-untracked-bg: rgba(38, 139, 210, 0.16);
+    --gn-status-conflict: #cb4b16;
+    --gn-status-conflict-bg: rgba(203, 75, 22, 0.18);
+    --gn-status-renamed: #2aa198;
+}
+
+:root[data-scheme="solarized"][data-theme="light"] {
+    /* Core editor colors */
+    --vscode-editor-background: #fdf6e3;
+    --vscode-editor-foreground: #657b83;
+    --vscode-foreground: #657b83;
+    --vscode-editor-selectionBackground: #eee8d5;
+    --vscode-editor-lineHighlightBackground: #eee8d5;
+
+    /* Panel and borders */
+    --vscode-panel-border: #ded8c4;
+    --vscode-editorWidget-background: #eee8d5;
+    --vscode-editorWidget-border: #ded8c4;
+    --vscode-focusBorder: #268bd2;
+
+    /* List and selection */
+    --vscode-list-hoverBackground: #eee8d5;
+    --vscode-list-activeSelectionBackground: #e3ddc7;
+    --vscode-list-activeSelectionForeground: #586e75;
+
+    /* Primary buttons */
+    --vscode-button-background: #268bd2;
+    --vscode-button-foreground: #fdf6e3;
+    --vscode-button-hoverBackground: #1e7cc0;
+    --vscode-button-border: transparent;
+
+    /* Secondary buttons */
+    --vscode-button-secondaryBackground: #eee8d5;
+    --vscode-button-secondaryForeground: #586e75;
+    --vscode-button-secondaryHoverBackground: #e3ddc7;
+
+    /* Inputs */
+    --vscode-input-background: #fdf6e3;
+    --vscode-input-foreground: #586e75;
+    --vscode-input-border: #ded8c4;
+    --vscode-input-placeholderForeground: #93a1a1;
+
+    /* Dropdowns */
+    --vscode-dropdown-background: #fdf6e3;
+    --vscode-dropdown-foreground: #586e75;
+    --vscode-dropdown-border: #ded8c4;
+
+    /* Badges */
+    --vscode-badge-background: #e3ddc7;
+    --vscode-badge-foreground: #586e75;
+
+    /* Text styles */
+    --vscode-descriptionForeground: #93a1a1;
+    --vscode-disabledForeground: #93a1a1;
+    --vscode-textLink-foreground: #268bd2;
+
+    /* Checkbox */
+    --vscode-checkbox-foreground: #268bd2;
+
+    /* Error and validation */
+    --vscode-errorForeground: #dc322f;
+    --vscode-errorBackground: rgba(220, 50, 47, 0.1);
+    --vscode-inputValidation-errorBackground: rgba(220, 50, 47, 0.1);
+    --vscode-inputValidation-errorForeground: #dc322f;
+    --vscode-inputValidation-errorBorder: #dc322f;
+    --vscode-editorError-foreground: #dc322f;
+
+    /* Warning */
+    --vscode-inputValidation-warningBackground: rgba(181, 137, 0, 0.1);
+    --vscode-inputValidation-warningForeground: #b58900;
+    --vscode-inputValidation-warningBorder: #b58900;
+    --vscode-editorWarning-foreground: #b58900;
+
+    /* Git decorations */
+    --vscode-gitDecoration-addedResourceForeground: #859900;
+
+    /* Diff editor */
+    --vscode-diffEditor-insertedTextBackground: rgba(133, 153, 0, 0.16);
+    --vscode-diffEditor-removedTextBackground: rgba(220, 50, 47, 0.16);
+
+    /* Banner */
+    --vscode-banner-background: #eee8d5;
+    --vscode-banner-foreground: #586e75;
+    --vscode-banner-border: #ded8c4;
+
+    /* Terminal ANSI colors (drive syntax + graph accents) */
+    --vscode-terminal-ansiCyan: #2aa198;
+    --vscode-terminal-ansiMagenta: #6c71c4;
+    --vscode-terminal-ansiYellow: #b58900;
+    --vscode-terminal-ansiGreen: #859900;
+    --vscode-terminal-ansiBlue: #268bd2;
+    --vscode-terminal-ansiRed: #dc322f;
+
+    /* Shell chrome */
+    --shell-window-close-hover-bg: #dc322f;
+    --shell-window-close-hover-fg: #fdf6e3;
+
+    /* Files activity git status */
+    --gn-status-added: #859900;
+    --gn-status-added-bg: rgba(133, 153, 0, 0.16);
+    --gn-status-removed: #dc322f;
+    --gn-status-removed-bg: rgba(220, 50, 47, 0.16);
+    --gn-status-modified: #b58900;
+    --gn-status-modified-bg: rgba(181, 137, 0, 0.16);
+    --gn-status-untracked: #268bd2;
+    --gn-status-untracked-bg: rgba(38, 139, 210, 0.16);
+    --gn-status-conflict: #cb4b16;
+    --gn-status-conflict-bg: rgba(203, 75, 22, 0.18);
+    --gn-status-renamed: #2aa198;
+}

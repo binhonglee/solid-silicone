@@ -1,0 +1,17 @@
+/** Docs-only: load every bundled scheme so the scheme picker previews each palette. Production consumers load only the schemes they need via the ./schemes/* subpath. */
+@import '../../packages/silicone/src/styles/schemes/atom-one.css';
+@import '../../packages/silicone/src/styles/schemes/catppuccin-frappe.css';
+@import '../../packages/silicone/src/styles/schemes/catppuccin-latte.css';
+@import '../../packages/silicone/src/styles/schemes/catppuccin-macchiato.css';
+@import '../../packages/silicone/src/styles/schemes/catppuccin-mocha.css';
+@import '../../packages/silicone/src/styles/schemes/dracula.css';
+@import '../../packages/silicone/src/styles/schemes/github.css';
+@import '../../packages/silicone/src/styles/schemes/material-darker.css';
+@import '../../packages/silicone/src/styles/schemes/material-lighter.css';
+@import '../../packages/silicone/src/styles/schemes/material-ocean.css';
+@import '../../packages/silicone/src/styles/schemes/material-oceanic.css';
+@import '../../packages/silicone/src/styles/schemes/material-palenight.css';
+@import '../../packages/silicone/src/styles/schemes/navigator.css';
+@import '../../packages/silicone/src/styles/schemes/nerv.css';
+@import '../../packages/silicone/src/styles/schemes/nord.css';
+@import '../../packages/silicone/src/styles/schemes/solarized.css';

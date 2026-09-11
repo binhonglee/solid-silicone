@@ -1,0 +1,138 @@
+/**
+ * Solid Silicone success-foreground picks.
+ *
+ * The done-step dot fills with the theme green (`--vscode-terminal-ansiGreen`).
+ * No VS Code token pairs a foreground with that green, and hardcoding white
+ * fails on bright dark-mode greens (dracula white contrast is 1.4:1). Each
+ * rule below picks the luminance winner (white vs near-black) for that
+ * scheme-plus-mode pair. Regenerate by contrast check, not by eye.
+ * Default (tokens.css) is white, which fits the no-scheme `--si-success`.
+ */
+
+:root[data-scheme="atom-one"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #98c379 */
+}
+
+:root[data-scheme="atom-one"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #50a14f */
+}
+
+:root[data-scheme="catppuccin-frappe"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #a6d189 */
+}
+
+:root[data-scheme="catppuccin-frappe"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #a6d189 */
+}
+
+:root[data-scheme="catppuccin-latte"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #40a02b */
+}
+
+:root[data-scheme="catppuccin-latte"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #40a02b */
+}
+
+:root[data-scheme="catppuccin-macchiato"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #a6da95 */
+}
+
+:root[data-scheme="catppuccin-macchiato"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #a6da95 */
+}
+
+:root[data-scheme="catppuccin-mocha"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #a6e3a1 */
+}
+
+:root[data-scheme="catppuccin-mocha"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #a6e3a1 */
+}
+
+:root[data-scheme="dracula"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #50fa7b */
+}
+
+:root[data-scheme="dracula"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #50fa7b */
+}
+
+:root[data-scheme="github"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #3fb950 */
+}
+
+:root[data-scheme="github"][data-theme="light"] {
+    --si-on-success: #ffffff; /* on #1a7f37 */
+}
+
+:root[data-scheme="material-darker"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #c3e88d */
+}
+
+:root[data-scheme="material-darker"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #c3e88d */
+}
+
+:root[data-scheme="material-lighter"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #91b859 */
+}
+
+:root[data-scheme="material-lighter"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #91b859 */
+}
+
+:root[data-scheme="material-ocean"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #c3e88d */
+}
+
+:root[data-scheme="material-ocean"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #c3e88d */
+}
+
+:root[data-scheme="material-oceanic"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #c3e88d */
+}
+
+:root[data-scheme="material-oceanic"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #c3e88d */
+}
+
+:root[data-scheme="material-palenight"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #c3e88d */
+}
+
+:root[data-scheme="material-palenight"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #c3e88d */
+}
+
+:root[data-scheme="navigator"][data-theme="light"] {
+    --si-on-success: #ffffff; /* on #1e681e */
+}
+
+:root[data-scheme="navigator"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #46c970 */
+}
+
+:root[data-scheme="nerv"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #4a8c5c */
+}
+
+:root[data-scheme="nerv"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #4a8c5c */
+}
+
+:root[data-scheme="nord"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #a3be8c */
+}
+
+:root[data-scheme="nord"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #a3be8c */
+}
+
+:root[data-scheme="solarized"][data-theme="dark"] {
+    --si-on-success: #181a18; /* on #859900 */
+}
+
+:root[data-scheme="solarized"][data-theme="light"] {
+    --si-on-success: #1e1e1e; /* on #859900 */
+}

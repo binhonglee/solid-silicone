@@ -1,0 +1,92 @@
+/**
+ * Catppuccin Frappé (https://catppuccin.com) — warm mid-dark flavor.
+ * Single flavor: one palette regardless of the light/dark data-theme value.
+ */
+
+:root[data-scheme="catppuccin-frappe"][data-theme="dark"],
+:root[data-scheme="catppuccin-frappe"][data-theme="light"] {
+    --vscode-editor-background: #303446;
+    --vscode-editor-foreground: #c6d0f5;
+    --vscode-foreground: #c6d0f5;
+    --vscode-editor-selectionBackground: #414559;
+    --vscode-editor-lineHighlightBackground: #3a3f54;
+
+    --vscode-panel-border: #414559;
+    --vscode-editorWidget-background: #292c3c;
+    --vscode-editorWidget-border: #414559;
+    --vscode-focusBorder: #8caaee;
+
+    --vscode-list-hoverBackground: #383c4f;
+    --vscode-list-activeSelectionBackground: #414559;
+    --vscode-list-activeSelectionForeground: #c6d0f5;
+
+    --vscode-button-background: #8caaee;
+    --vscode-button-foreground: #303446;
+    --vscode-button-hoverBackground: #9bb6f1;
+    --vscode-button-border: transparent;
+
+    --vscode-button-secondaryBackground: #414559;
+    --vscode-button-secondaryForeground: #c6d0f5;
+    --vscode-button-secondaryHoverBackground: #51576d;
+
+    --vscode-input-background: #292c3c;
+    --vscode-input-foreground: #c6d0f5;
+    --vscode-input-border: #414559;
+    --vscode-input-placeholderForeground: #737994;
+
+    --vscode-dropdown-background: #292c3c;
+    --vscode-dropdown-foreground: #c6d0f5;
+    --vscode-dropdown-border: #414559;
+
+    --vscode-badge-background: #51576d;
+    --vscode-badge-foreground: #c6d0f5;
+
+    --vscode-descriptionForeground: #a5adce;
+    --vscode-disabledForeground: #737994;
+    --vscode-textLink-foreground: #8caaee;
+
+    --vscode-checkbox-foreground: #8caaee;
+
+    --vscode-errorForeground: #e78284;
+    --vscode-errorBackground: rgba(231, 130, 132, 0.12);
+    --vscode-inputValidation-errorBackground: rgba(231, 130, 132, 0.12);
+    --vscode-inputValidation-errorForeground: #e78284;
+    --vscode-inputValidation-errorBorder: #e78284;
+    --vscode-editorError-foreground: #e78284;
+
+    --vscode-inputValidation-warningBackground: rgba(229, 200, 144, 0.12);
+    --vscode-inputValidation-warningForeground: #e5c890;
+    --vscode-inputValidation-warningBorder: #e5c890;
+    --vscode-editorWarning-foreground: #e5c890;
+
+    --vscode-gitDecoration-addedResourceForeground: #a6d189;
+
+    --vscode-diffEditor-insertedTextBackground: rgba(166, 209, 137, 0.16);
+    --vscode-diffEditor-removedTextBackground: rgba(231, 130, 132, 0.16);
+
+    --vscode-banner-background: #292c3c;
+    --vscode-banner-foreground: #c6d0f5;
+    --vscode-banner-border: #414559;
+
+    --vscode-terminal-ansiCyan: #81c8be;
+    --vscode-terminal-ansiMagenta: #ca9ee6;
+    --vscode-terminal-ansiYellow: #e5c890;
+    --vscode-terminal-ansiGreen: #a6d189;
+    --vscode-terminal-ansiBlue: #8caaee;
+    --vscode-terminal-ansiRed: #e78284;
+
+    --shell-window-close-hover-bg: #e78284;
+    --shell-window-close-hover-fg: #303446;
+
+    --gn-status-added: #a6d189;
+    --gn-status-added-bg: rgba(166, 209, 137, 0.16);
+    --gn-status-removed: #e78284;
+    --gn-status-removed-bg: rgba(231, 130, 132, 0.16);
+    --gn-status-modified: #e5c890;
+    --gn-status-modified-bg: rgba(229, 200, 144, 0.16);
+    --gn-status-untracked: #8caaee;
+    --gn-status-untracked-bg: rgba(140, 170, 238, 0.16);
+    --gn-status-conflict: #ef9f76;
+    --gn-status-conflict-bg: rgba(239, 159, 118, 0.18);
+    --gn-status-renamed: #81c8be;
+}

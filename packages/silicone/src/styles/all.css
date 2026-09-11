@@ -1,0 +1,10 @@
+/**
+ * Dev entry for the docs app (source form of the published stylesheet).
+ * Same layer order as the dist bundle: tokens, primitives, new components, markdown.
+ * The published entry `solid-silicone/styles.css` (dist) concatenates these files.
+ */
+@import './tokens.css';
+@import './silicone.css';
+@import './new_components.css';
+@import './markdown.css';
+@import './on-success.css';

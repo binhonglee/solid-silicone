@@ -1,0 +1,17 @@
+{
+  "name": "solid-silicone-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/silicone",
+    "docs"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=solid-silicone",
+    "test": "npm run test --workspace=solid-silicone",
+    "lint": "npm run lint --workspace=solid-silicone"
+  },
+  "overrides": {
+    "playwright-core": "1.63.0"
+  }
+}

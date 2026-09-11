@@ -1,0 +1,148 @@
+/** Solid Silicone new-component chrome. Uses --vscode-* first, --si-* fallback. */
+
+.si-stack { display: flex; flex-direction: column; min-width: 0; }
+.si-stack-sm { gap: 8px; }
+.si-stack-md { gap: 16px; }
+.si-stack-lg { gap: 24px; }
+
+.si-cluster { display: flex; flex-wrap: wrap; align-items: center; min-width: 0; }
+.si-cluster-sm { gap: 8px; }
+.si-cluster-md { gap: 16px; }
+.si-cluster-lg { gap: 24px; }
+
+.si-switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--vscode-editor-foreground, var(--si-text)); }
+.si-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.si-switch-track { width: 32px; height: 18px; border-radius: 999px; background: var(--vscode-input-border, var(--si-border)); display: inline-flex; align-items: center; padding: 2px; transition: background 0.15s ease; }
+.si-switch-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--vscode-editor-background, var(--si-surface)); transition: transform 0.15s ease; }
+.si-switch input:checked + .si-switch-track { background: var(--vscode-button-background, var(--si-accent)); }
+.si-switch input:checked + .si-switch-track .si-switch-thumb { transform: translateX(14px); }
+.si-switch input:focus-visible + .si-switch-track { outline: 1px solid var(--vscode-focusBorder, var(--si-focus)); outline-offset: 2px; }
+
+.si-radio { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+.si-radio input { accent-color: var(--vscode-button-background, var(--si-accent)); }
+.si-radio-group { display: flex; flex-direction: column; gap: 6px; }
+
+.si-split { display: flex; flex-direction: row; min-width: 0; min-height: 0; }
+.si-split-first { flex: none; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.si-split-second { flex: 1 1 auto; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.si-split-flip .si-split-first { flex: 1 1 auto; }
+.si-split-flip .si-split-second { flex: none; }
+.si-split-handle { flex: none; width: 9px; margin: 0 -4px; z-index: 1; }
+.si-split-handle:focus-visible { outline: 2px solid var(--vscode-focusBorder, var(--si-focus)); outline-offset: -2px; }
+.si-split-resizing, .si-split-resizing * { cursor: col-resize !important; user-select: none; }
+
+/* Split drawer mode (below drawerBreakpoint): the first pane slides in as an
+   overlay over a scrim, toggled by the floating menu button. The closed pane
+   hides with visibility (not display) so it leaves the tab order. */
+.si-split-drawer { position: relative; }
+.si-split-drawer > .si-split-handle { display: none; }
+.si-split-drawer-toggle { display: none; }
+.si-split-drawer > .si-split-drawer-toggle { display: inline-flex; position: absolute; top: 8px; left: 8px; z-index: 30; }
+.si-split-drawer-toggle, .si-split-drawer-open > .si-split-first > .si-split-drawer-close { align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; color: var(--vscode-foreground, var(--si-text)); background: var(--vscode-editorWidget-background, var(--si-surface-raised)); border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: 6px; cursor: pointer; }
+.si-split-drawer-toggle:hover, .si-split-drawer-open > .si-split-first > .si-split-drawer-close:hover { border-color: var(--vscode-focusBorder, var(--si-focus)); }
+.si-split-drawer-toggle:focus-visible, .si-split-drawer-open > .si-split-first > .si-split-drawer-close:focus-visible { outline: 2px solid var(--vscode-focusBorder, var(--si-focus)); outline-offset: 2px; }
+.si-split-drawer-close { display: none; }
+.si-split-drawer-open > .si-split-first > .si-split-drawer-close { display: inline-flex; position: absolute; top: 8px; right: 8px; z-index: 1; }
+.si-split-drawer > .si-split-first { position: absolute; top: 0; bottom: 0; left: 0; z-index: 20; width: min(300px, 85%); transform: translateX(-105%); visibility: hidden; transition: transform 0.2s ease, visibility 0.2s; background: var(--vscode-editorWidget-background, var(--si-surface-raised)); border-right: 1px solid var(--vscode-panel-border, var(--si-border)); box-shadow: 8px 0 24px rgb(0 0 0 / 0.25); }
+.si-split-drawer-open > .si-split-first { transform: none; visibility: visible; }
+.si-split-scrim { position: absolute; inset: 0; z-index: 10; background: rgb(0 0 0 / 0.35); }
+
+.si-dropdown { position: relative; display: inline-flex; }
+/* Doubled selector (0,2,0) on purpose: generic `.btn` chrome (0,1,0) loads
+   after this sheet in host apps, so a bare `.si-dropdown-trigger` loses the
+   space-between/gap tie and the value renders centered. */
+.si-dropdown .si-dropdown-trigger { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 160px; }
+.si-dropdown-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Fixed-anchored by JS (graph-header mechanism); coordinates ride inline.
+   Long lists scroll past about eleven rows; min() keeps small viewports safe. */
+.si-dropdown-menu { z-index: 80; max-height: min(320px, calc(100vh - 16px)); overflow-y: auto; }
+.si-search-panel { width: min(560px, 94%); }
+.si-search-header { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; flex: none; }
+.si-search-header .search-field { flex: 1 1 auto; min-width: 0; }
+.si-search-status { padding: 0 14px 8px; font-size: 12px; color: var(--vscode-descriptionForeground, var(--si-muted)); flex: none; }
+.si-search-list { overflow-y: auto; max-height: min(320px, 50vh); padding: 0 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+.si-search-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; font-size: 13px; border-radius: 6px; cursor: pointer; flex: none; }
+.si-search-item.active { background: var(--vscode-list-activeSelectionBackground, var(--vscode-list-hoverBackground, var(--si-active))); }
+.si-search-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.si-search-hint { flex: none; font-size: 11px; color: var(--vscode-descriptionForeground, var(--si-muted)); }
+.si-search-footer { display: flex; gap: 12px; padding: 8px 14px 12px; border-top: 1px solid var(--vscode-panel-border, var(--si-border)); font-size: 11px; color: var(--vscode-descriptionForeground, var(--si-muted)); flex: none; }
+.menu-item.active { color: var(--vscode-button-background, var(--si-accent)); font-weight: 600; }
+
+.si-slider { accent-color: var(--vscode-button-background, var(--si-accent)); width: 100%; }
+
+.si-file-input {
+    font-size: 13px; color: var(--vscode-input-foreground, var(--si-text));
+}
+.si-file-input::file-selector-button {
+    padding: 6px 12px; margin-right: 10px; border-radius: 4px; cursor: pointer;
+    border: 1px solid var(--vscode-button-border, transparent);
+    background: var(--vscode-button-secondaryBackground, var(--si-surface-raised));
+    color: var(--vscode-button-secondaryForeground, var(--si-text));
+}
+.si-file-input::file-selector-button:hover { background: var(--vscode-button-secondaryHoverBackground, var(--si-hover)); }
+
+.si-alert { border: 1px solid var(--vscode-panel-border, var(--si-border)); border-left-width: 4px; border-radius: var(--si-radius); padding: 10px 12px; font-size: 13px; background: var(--vscode-editorWidget-background, var(--si-surface-raised)); color: var(--vscode-editor-foreground, var(--si-text)); }
+.si-alert-title { font-weight: 600; margin-bottom: 4px; }
+.si-alert-info { border-left-color: var(--vscode-terminal-ansiBlue, var(--si-accent)); }
+.si-alert-success { border-left-color: var(--vscode-terminal-ansiGreen, var(--si-success)); }
+.si-alert-warning { border-left-color: var(--vscode-terminal-ansiYellow, var(--si-warning)); }
+.si-alert-danger { border-left-color: var(--vscode-terminal-ansiRed, var(--si-danger)); }
+
+.si-toast { position: relative; border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: var(--si-radius); padding: 10px 36px 10px 12px; background: var(--vscode-editorWidget-background, var(--si-surface-raised)); color: var(--vscode-editor-foreground, var(--si-text)); font-size: 13px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
+.si-toast-title { font-weight: 600; margin-bottom: 2px; }
+.si-toast-close { position: absolute; top: 6px; right: 6px; border: none; background: transparent; color: inherit; cursor: pointer; font-size: 14px; padding: 2px 6px; }
+
+.si-progress { height: 8px; border-radius: 999px; background: var(--vscode-list-hoverBackground, var(--si-hover)); overflow: hidden; }
+.si-progress-bar { height: 100%; background: var(--vscode-button-background, var(--si-accent)); transition: width 0.2s ease; }
+
+.si-skeleton { border-radius: 4px; background: var(--vscode-list-hoverBackground, var(--si-hover)); min-height: 12px; animation: si-pulse 1.4s ease-in-out infinite; }
+@keyframes si-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.si-avatar { border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; object-fit: cover; }
+.si-avatar-fallback { background: var(--vscode-button-background, var(--si-accent)); color: var(--vscode-button-foreground, var(--si-on-accent)); font-size: 12px; font-weight: 600; }
+
+.si-card { border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: var(--si-radius); padding: 16px; background: var(--vscode-editor-background, var(--si-surface)); }
+.si-card-title { margin: 0 0 8px 0; font-size: 14px; font-weight: 600; }
+
+.si-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.si-table th, .si-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--vscode-panel-border, var(--si-border)); }
+.si-table th { color: var(--vscode-descriptionForeground, var(--si-muted)); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.si-kbd { font-family: var(--vscode-editor-font-family, var(--si-font-mono)); font-size: 12px; white-space: nowrap; background: var(--vscode-editor-background, var(--si-surface)); border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: 6px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 2px; }
+.si-kbd-key { font-weight: 600; }
+.si-kbd-sep { opacity: 0.45; font-weight: 400; margin: 0 1px; user-select: none; }
+.si-kbd-alt { opacity: 0.45; font-weight: 400; margin: 0 6px; user-select: none; }
+.si-link { color: var(--vscode-textLink-foreground, var(--si-accent)); }
+.si-divider { border: none; border-top: 1px solid var(--vscode-panel-border, var(--si-border)); margin: 12px 0; }
+.si-divider-label { display: flex; align-items: center; gap: 8px; color: var(--vscode-descriptionForeground, var(--si-muted)); font-size: 12px; margin: 12px 0; }
+.si-divider-label::before, .si-divider-label::after { content: ""; flex: 1; border-top: 1px solid var(--vscode-panel-border, var(--si-border)); }
+
+.si-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--vscode-panel-border, var(--si-border)); }
+.si-tab { border: none; background: transparent; color: var(--vscode-descriptionForeground, var(--si-muted)); padding: 8px 12px; cursor: pointer; font-size: 13px; border-bottom: 2px solid transparent; }
+.si-tab.active { color: var(--vscode-editor-foreground, var(--si-text)); border-bottom-color: var(--vscode-button-background, var(--si-accent)); }
+
+.si-breadcrumb ol { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; font-size: 13px; }
+.si-breadcrumb a { color: var(--vscode-textLink-foreground, var(--si-accent)); text-decoration: none; }
+.si-breadcrumb a:hover { text-decoration: underline; }
+.si-breadcrumb-sep { margin-right: 6px; color: var(--vscode-descriptionForeground, var(--si-muted)); }
+
+.si-pagination { display: flex; gap: 4px; align-items: center; }
+.si-pagination button { border: 1px solid var(--vscode-panel-border, var(--si-border)); background: var(--vscode-button-secondaryBackground, var(--si-surface-raised)); color: var(--vscode-button-secondaryForeground, var(--si-text)); border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+.si-pagination button.active { background: var(--vscode-button-background, var(--si-accent)); color: var(--vscode-button-foreground, var(--si-on-accent)); border-color: transparent; }
+.si-pagination button:disabled { opacity: 0.5; cursor: default; }
+
+.si-stepper { display: flex; gap: 12px; list-style: none; margin: 0; padding: 0; font-size: 13px; }
+.si-step-dot { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--vscode-panel-border, var(--si-border)); font-size: 12px; margin-right: 6px; }
+.si-stepper .done .si-step-dot { background: var(--vscode-terminal-ansiGreen, var(--si-success)); color: var(--si-on-success); border-color: transparent; }
+.si-stepper .current .si-step-dot { background: var(--vscode-button-background, var(--si-accent)); color: var(--vscode-button-foreground, var(--si-on-accent)); border-color: transparent; }
+
+.si-tooltip-wrap { position: relative; display: inline-flex; }
+.si-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; padding: 4px 8px; border-radius: 4px; background: var(--vscode-editorWidget-background, var(--si-surface-raised)); color: var(--vscode-editor-foreground, var(--si-text)); border: 1px solid var(--vscode-panel-border, var(--si-border)); opacity: 0; pointer-events: none; transition: opacity 0.12s ease; }
+.si-tooltip-wrap:hover .si-tooltip, .si-tooltip-wrap:focus-within .si-tooltip { opacity: 1; }
+
+.si-popover { border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: var(--si-radius); background: var(--vscode-editorWidget-background, var(--si-surface-raised)); padding: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
+
+.si-accordion { border: 1px solid var(--vscode-panel-border, var(--si-border)); border-radius: var(--si-radius); }
+.si-accordion-trigger { display: flex; align-items: center; gap: 8px; width: 100%; border: none; background: transparent; color: inherit; padding: 10px 12px; cursor: pointer; font-size: 13px; }
+.si-accordion-trigger .expanded { transform: rotate(90deg); }
+.si-accordion-panel { padding: 0 12px 12px 12px; font-size: 13px; }

@@ -1,0 +1,43 @@
+/**
+ * Solid Silicone token layer.
+ * `--si-*` aliases exist ONLY where no `--vscode-*` token fits.
+ * Components read `--vscode-*` first with `var(--si-*)` fallbacks.
+ * Keep in sync with `src/theme/tokenContract.ts`.
+ */
+:root {
+    --si-surface: #ffffff;
+    --si-surface-raised: #f3f3f3;
+    --si-text: #1e1e1e;
+    --si-muted: #808080;
+    --si-border: #808080;
+    --si-hover: rgba(0, 0, 0, 0.06);
+    --si-active: rgba(0, 0, 0, 0.1);
+    --si-accent: #333382;
+    --si-accent-hover: #2a2a6b;
+    --si-on-accent: #ffffff;
+    --si-focus: #333382;
+    --si-success: #1e681e;
+    --si-on-success: #ffffff;
+    --si-warning: #967c3b;
+    --si-danger: #893636;
+    --si-danger-bg: rgba(137, 54, 54, 0.12);
+    --si-magenta: #893636;
+    --si-cyan: #333382;
+    --si-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    --si-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --si-radius: 6px;
+}
+
+:root[data-theme="dark"] {
+    --si-surface: #181a18;
+    --si-surface-raised: #1e1e2e;
+    --si-text: #ececdf;
+    --si-muted: #808080;
+    --si-border: #3f4d3f;
+    --si-hover: rgba(255, 255, 255, 0.06);
+    --si-active: rgba(255, 255, 255, 0.1);
+    --si-accent: #44cfde;
+    --si-accent-hover: #35b5c2;
+    --si-on-accent: #181a18;
+    --si-focus: #44cfde;
+}

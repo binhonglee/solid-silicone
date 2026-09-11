@@ -1,0 +1,48 @@
+{
+  "name": "solid-silicone",
+  "version": "0.1.0",
+  "description": "Plug-and-play SolidJS design system with first-class VS Code theme support",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/solid-silicone.cjs",
+  "module": "./dist/solid-silicone.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/silicone.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/solid-silicone.js",
+      "require": "./dist/solid-silicone.cjs"
+    },
+    "./styles.css": "./dist/silicone.css",
+    "./gitIcons": {
+      "types": "./dist/components/gitIcons.d.ts",
+      "import": "./dist/solid-silicone.js",
+      "require": "./dist/solid-silicone.cjs"
+    },
+    "./schemes/*": "./dist/schemes/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "solid-js": "^1.9.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^5.0.0",
+    "solid-js": "1.9.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vite-plugin-solid": "2.11.14",
+    "vitest": "5.0.0"
+  },
+  "scripts": {
+    "build": "vite build && npm run build:css && npm run build:types",
+    "build:css": "node scripts/build-css.mjs",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",
+    "prepack": "npm run build",
+    "test": "vitest run",
+    "lint": "tsc --noEmit -p tsconfig.json"
+  }
+}

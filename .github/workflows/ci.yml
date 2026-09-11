@@ -1,0 +1,77 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npm run lint --workspace=solid-silicone
+      - run: npm test --workspace=solid-silicone
+      - run: npm run build --workspace=solid-silicone
+      - run: npm run build --workspace=silicone-docs
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build --workspace=solid-silicone
+      - run: npm run build --workspace=silicone-docs
+      - run: npm run test:visual --workspace=silicone-docs
+      - name: Summarize snapshot failures
+        if: failure()
+        run: |
+          {
+            echo "## Visual snapshots failed"
+            echo ""
+            find docs/test-results -name '*-diff.png' 2>/dev/null | sort | sed 's/^/- `/' | sed 's/$/`/'
+            echo ""
+            echo "[Open this run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) and download the visual-diffs artifact for actual/expected/diff PNGs."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diffs
+          path: |
+            docs/test-results/
+            docs/playwright-report/
+  pages:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build --workspace=solid-silicone
+      - run: npm run build:pages --workspace=silicone-docs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/dist
+      - uses: actions/deploy-pages@v4

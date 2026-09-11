@@ -1,0 +1,28 @@
+name: dependabot-automerge
+on:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+
+# Merges green Dependabot PRs. This job never checks out PR code: it only
+# calls the merge API after the full ci run (lint, tests, builds) succeeds.
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          PR=$(gh pr list --head "$BRANCH" --json number,author --jq '.[] | select(.author.login == "dependabot[bot]") | .number')
+          if [ -n "$PR" ]; then
+            gh pr merge "$PR" --squash --delete-branch
+          else
+            echo "No open Dependabot PR for $BRANCH."
+          fi
