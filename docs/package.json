@@ -18,11 +18,11 @@
     "solid-silicone": "file:../packages/silicone"
   },
   "devDependencies": {
-    "@globetrotte/altimeter": "^0.0.5",
-    "@playwright/test": "^1.63.0",
-    "playwright": "1.63.0",
+    "@globetrotte/altimeter": "^0.1.2",
+    "@playwright/test": "^1.65.1",
+    "playwright": "1.65.1",
     "typescript": "7.0.2",
-    "vite": "8.3.0",
-    "vite-plugin-solid": "2.11.14"
+    "vite": "8.3.8",
+    "vite-plugin-solid": "2.11.17"
   }
 }
